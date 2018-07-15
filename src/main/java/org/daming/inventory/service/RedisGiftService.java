@@ -1,5 +1,6 @@
 package org.daming.inventory.service;
 
+import org.daming.inventory.pojo.Gift;
 import org.daming.inventory.pojo.RedisGift;
 
 import java.util.Optional;
@@ -13,6 +14,8 @@ import java.util.Optional;
 public interface RedisGiftService {
 
     Optional<RedisGift> getGift(int id);
+
+    Gift doGetGift(int id);
 
     void saveGift(RedisGift gift);
 }

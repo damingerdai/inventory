@@ -2,6 +2,7 @@ package org.daming.inventory.service.impl;
 
 import org.daming.inventory.constants.CommonConstants;
 import org.daming.inventory.dao.GiftDao;
+import org.daming.inventory.pojo.Gift;
 import org.daming.inventory.pojo.RedisGift;
 import org.daming.inventory.service.RedisGiftService;
 import org.daming.inventory.service.RedisService;
@@ -29,10 +30,23 @@ public class RedisGiftServiceImpl implements RedisGiftService {
         if (Objects.nonNull(object) && object instanceof  RedisGift) {
             return Optional.of((RedisGift)object);
         } else {
-            RedisGift redisGift = RedisGift.build(giftDao.get(id));
+            Gift gift = giftDao.get(id);
+            if (Objects.isNull(gift)) {
+                return Optional.empty();
+            }
+            RedisGift redisGift = RedisGift.build(gift);
             redisGift.setNewFlag(true);
             saveGift(redisGift);
             return Optional.ofNullable(redisGift);
+        }
+    }
+
+    public Gift doGetGift(int id) {
+        Object object = redisService.get(String.format(CommonConstants.KEY_GIFT, id));
+        if (Objects.nonNull(object) && object instanceof Gift) {
+            return (Gift)object;
+        } else {
+            return null;
         }
     }
 

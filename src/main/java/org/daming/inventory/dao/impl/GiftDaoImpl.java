@@ -5,7 +5,9 @@ import org.daming.inventory.dao.GiftDao;
 import org.daming.inventory.pojo.Gift;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.Assert;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,6 +28,14 @@ public class GiftDaoImpl extends BaseDao implements GiftDao {
         return get("select id, code, name, num from gift where id =? ", new Object[]{id}, this::getGift);
     }
 
+    @Override
+    public KeyHolder create(Gift gift) {
+        Assert.notNull(gift, "'gift' is required");
+        String sql = "insert into gift(code, name, num) values (?,?, 0)";
+        Object[] params = new Object[] { gift.getCode(), gift.getName(), gift.getNum() };
+        return add(sql, params);
+    }
+
 
     @Override
     public List<Gift> list() {
@@ -40,6 +50,12 @@ public class GiftDaoImpl extends BaseDao implements GiftDao {
         }
         sql += " limit " + ((pageNo - 1) * pageSize) + "," + pageSize;
         return list(sql, this::getGift);
+    }
+
+    @Override
+    public int delete(int id) {
+        String sql ="delete * from gift where id = ?";
+        return execute(sql, new Object[] { id } );
     }
 
     private Gift getGift(ResultSet rs) throws SQLException {
