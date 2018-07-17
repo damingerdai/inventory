@@ -59,4 +59,14 @@ public class PageInfo implements Serializable {
         this.currentPage = currentPage;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "PageInfo{" +
+                "pageSize=" + pageSize +
+                ", totalPage=" + totalPage +
+                ", totalResult=" + totalResult +
+                ", currentPage=" + currentPage +
+                '}';
+    }
 }

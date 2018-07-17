@@ -1,6 +1,7 @@
 package org.daming.inventory.dao;
 
 import org.daming.inventory.pojo.Gift;
+import org.daming.inventory.pojo.PageInfo;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -21,4 +22,6 @@ public interface ReactorGiftDao {
     Flux<Gift> like(String name, int pageNo, int pageSize);
 
     Mono<Integer> delete(int id);
+
+    Mono<PageInfo> getPageInfo(String name, int pageNo, int pageSize);
 }

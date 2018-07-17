@@ -2,6 +2,7 @@ package org.daming.inventory.service.impl;
 
 import org.daming.inventory.dao.ReactorGiftDao;
 import org.daming.inventory.pojo.Gift;
+import org.daming.inventory.pojo.PageInfo;
 import org.daming.inventory.pojo.response.CommonResponse;
 import org.daming.inventory.pojo.response.DataResponse;
 import org.daming.inventory.pojo.response.PageResponse;
@@ -42,7 +43,15 @@ public class ReactorGiftServiceImpl implements ReactorGiftService {
 
     @Override
     public Mono<PageResponse<Gift>> list(String name, int pageNo, int pageSize) {
-        return reactorGiftDao.like(name, pageNo, pageSize).collect(toList()).map(this::giftPageResponse);
+        return reactorGiftDao.like(name, pageNo, pageSize).collect(toList()).map(this::giftPageResponse)
+                .flatMap(value -> reactorGiftDao.getPageInfo(name, pageNo, pageSize).map(value::setPageInfo));
+
+    }
+
+    private PageResponse<Gift> giftPageResponse(PageInfo pageInfo) {
+        PageResponse<Gift> pageResponse = new PageResponse<>();
+        pageResponse.setPageInfo(pageInfo);
+        return pageResponse;
     }
 
     private PageResponse<Gift> giftPageResponse(List<Gift> gifts) {
@@ -56,8 +65,9 @@ public class ReactorGiftServiceImpl implements ReactorGiftService {
         return reactorGiftDao.delete(id).map(integer -> new CommonResponse());
     }
 
-
-    public ReactorGiftServiceImpl(ReactorGiftDao reactorGiftDao) {
+    public ReactorGiftServiceImpl(ReactorGiftDao reactorGiftDao, RedisGiftService redisGiftService) {
+        super();
         this.reactorGiftDao = reactorGiftDao;
+        this.redisGiftService = redisGiftService;
     }
 }

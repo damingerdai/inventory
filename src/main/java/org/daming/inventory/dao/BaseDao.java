@@ -122,6 +122,18 @@ public abstract class BaseDao {
         }
     }
 
+    protected int count(String sql) {
+        Instant in = Instant.now();
+        try {
+            return getJdbcTemplate().queryForObject(sql, Integer.class);
+        } catch (Exception ex) {
+            logger.error(ex.getMessage(), ex);
+            throw ex;
+        } finally {
+            logger.error("sql: {} , spend time: {}", sql, Duration.between(in, Instant.now()).toMillis());
+        }
+    }
+
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }

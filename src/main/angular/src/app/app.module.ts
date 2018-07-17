@@ -13,9 +13,9 @@ import { CoreModule } from './core/core.module';
     AppComponent
   ],
   imports: [
+    BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule, // required for ng2-tag-input
-    BrowserModule,
     CoreModule,
     LayoutModule,
     RoutesModule,

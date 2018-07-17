@@ -58,6 +58,15 @@ public class GiftDaoImpl extends BaseDao implements GiftDao {
         return execute(sql, new Object[] { id } );
     }
 
+    @Override
+    public int likeCount(String name) {
+        String sql = "select count(*) from gift ";
+        if (Objects.nonNull(name) && !"".equalsIgnoreCase(name.trim())) {
+            sql += " where name like '%" + name + "%' ";
+        }
+        return count(sql);
+    }
+
     private Gift getGift(ResultSet rs) throws SQLException {
         while (rs.next()) {
             return new Gift()

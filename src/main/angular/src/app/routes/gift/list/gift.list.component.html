@@ -19,6 +19,15 @@
                                         <th scope="col">操作</th>
                                     </tr>
                                 </thead>
+                                <tbody>
+                                    <tr *ngFor="let gift of gifts; let num = index">
+                                        <th scope="col">{{ num + 1}}</th>
+                                        <th scope="col">{{ gift.code }}</th>
+                                        <th scope="col">{{ gift.name }}</th>
+                                        <th scope="col">{{ gift.num }}</th>
+                                        <th scope="col">操作</th>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
 

@@ -43,8 +43,8 @@ public class ApiController {
     @GetMapping(path = "gift")
     public Mono<PageResponse<Gift>> list(@RequestParam(name = "name", required = false) String name,
                                          @RequestParam(name = "pageNo", required = false, defaultValue = "1") int pageNo,
-                                         @RequestParam(name = "pageSize", required = false, defaultValue = "5") int pagseSize) {
-        return  reactorGiftService.list(name, pageNo, pagseSize);
+                                         @RequestParam(name = "pageSize", required = false, defaultValue = "5") int pageSize) {
+        return  reactorGiftService.list(name, pageNo, pageSize);
     }
 
     @PostMapping(path = "gift")
