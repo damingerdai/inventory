@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { GiftListComponent } from './list/gift.list.component';
 import { CommonModule } from '@angular/common';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { GiftListComponent } from './list/gift.list.component';
+import { GiftModalComponent } from './modal/gift.modal.component';
 
 const routes: Routes = [
     { path: '', component: GiftListComponent },
@@ -10,10 +12,16 @@ const routes: Routes = [
 @NgModule({
     imports: [
         CommonModule,
+        ModalModule.forRoot(),
         RouterModule.forChild(routes)
     ],
     declarations: [
-        GiftListComponent],
+        GiftModalComponent,
+        GiftListComponent,
+    ],
+    entryComponents: [
+        GiftModalComponent
+    ],
     exports: [
         RouterModule
     ]

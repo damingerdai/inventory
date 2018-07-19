@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Gift } from '../../../modal/gift';
-import { Page, PageInfo } from '../../../modal/page';
-import { PageResponse, ErrorResponse } from '../../../modal/response';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { combineLatest, Subscription } from 'rxjs';
+import { Gift } from '../../../model/gift';
+import { Page, PageInfo } from '../../../model/page';
+import { PageResponse, ErrorResponse } from '../../../model/response';
+import { GiftModalComponent } from '../modal/gift.modal.component';
 
 @Component({
     selector: 'app-gift-list',
@@ -19,7 +22,30 @@ export class GiftListComponent implements OnInit {
     pageInfo: PageInfo;
     gifts: Gift[];
 
-    constructor(private http: HttpClient) { }
+    modalRef: BsModalRef;
+    subscriptions: Subscription[] = [];
+
+    constructor(
+        private http: HttpClient,
+        private modalService: BsModalService,
+        private changeDetection: ChangeDetectorRef) { }
+
+    add() {
+        const _combine = combineLatest(
+            this.modalService.onHidden
+          ).subscribe(() => this.changeDetection.markForCheck());
+ 
+          this.subscriptions.push(
+            this.modalService.onHidden.subscribe((reason: string) => {
+              this.unsubscribe();
+            })
+          );
+ 
+          this.subscriptions.push(_combine);
+ 
+          this.modalRef = this.modalService.show(GiftModalComponent);
+          this.modalRef.content.title = '添加礼品';
+    }
 
     ngOnInit() {
         this.http.get<PageResponse<Gift> | ErrorResponse>('/api/v1/gift', { params: {
@@ -35,5 +61,12 @@ export class GiftListComponent implements OnInit {
             }
         });
     }
+
+    unsubscribe() {
+        this.subscriptions.forEach((subscription: Subscription) => {
+          subscription.unsubscribe();
+        });
+        this.subscriptions = [];
+      }
 
 }
