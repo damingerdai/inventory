@@ -17,6 +17,8 @@ public interface ReactorGiftDao {
 
     Mono<Integer> add(Gift gift);
 
+    Mono<Integer> update(Gift gift);
+
     Flux<Gift> list();
 
     Flux<Gift> like(String name, int pageNo, int pageSize);

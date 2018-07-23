@@ -1,7 +1,6 @@
 package org.daming.inventory.dao;
 
 import org.daming.inventory.pojo.Gift;
-import org.springframework.jdbc.support.KeyHolder;
 
 import java.util.List;
 
@@ -15,7 +14,9 @@ public interface GiftDao {
 
     Gift get(int id);
 
-    KeyHolder create(Gift gift);
+    boolean create(Gift gift);
+
+    boolean edit(Gift gift);
 
     List<Gift> list();
 

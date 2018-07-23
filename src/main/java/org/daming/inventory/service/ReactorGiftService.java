@@ -16,6 +16,8 @@ public interface ReactorGiftService {
 
     Mono<CommonResponse> add(Gift gift);
 
+    Mono<CommonResponse> update(Gift gift);
+
     Mono<DataResponse<Gift>> get(int id);
 
     Mono<PageResponse<Gift>> list(String name, int pageNo, int pageSize);

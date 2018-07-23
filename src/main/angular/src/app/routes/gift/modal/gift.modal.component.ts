@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { CommonResponse } from '../../../model/response';
 
 
 @Component({
@@ -24,7 +25,14 @@ export class GiftModalComponent {
 
   saveGift() {
     if (this.giftCode && this.giftName) {
-      this.http.post('/', {giftCode: this.giftCode, giftName: this.giftName});
+      this.http.post<CommonResponse>('/api/v1/gift', {code: this.giftCode, name: this.giftName}).subscribe(res => {
+        if (res.statusCode === 200) {
+          alert('成功');
+          this.modalRef.hide();
+        } else {
+          alert(res.error.message);
+        }
+      });
     } else {
       this.errorMsg = '请输入完整';
     }

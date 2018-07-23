@@ -29,11 +29,20 @@ public class GiftDaoImpl extends BaseDao implements GiftDao {
     }
 
     @Override
-    public KeyHolder create(Gift gift) {
+    public boolean create(Gift gift) {
         Assert.notNull(gift, "'gift' is required");
-        String sql = "insert into gift(code, name, num) values (?,?, 0)";
-        Object[] params = new Object[] { gift.getCode(), gift.getName(), gift.getNum() };
-        return add(sql, params);
+        String sql = "insert into gift(code, name, num, create_date, create_user, update_date, update_user) values (?,?, 0, now(), ?, now(), ?)";
+        Object[] params = new Object[] { gift.getCode(), gift.getName(), getClass().getName(), getClass().getName() };
+        return insert(sql, params);
+    }
+
+    @Override
+    public boolean edit(Gift gift) {
+        Assert.notNull(gift, "'gift' is required");
+        String sql = "update gift set code = ? , name = ?, update_date = now(), update_user = ? where id = ?";
+        Object[] params = new Object[] { gift.getCode(), gift.getName(), getClass().getName(), gift.getId()};
+        execute(sql, params);
+        return true;
     }
 
 

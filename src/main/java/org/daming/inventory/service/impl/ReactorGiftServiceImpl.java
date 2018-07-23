@@ -33,6 +33,11 @@ public class ReactorGiftServiceImpl implements ReactorGiftService {
     }
 
     @Override
+    public Mono<CommonResponse> update(Gift gift) {
+        return reactorGiftDao.update(gift).map(integer -> new CommonResponse());
+    }
+
+    @Override
     public Mono<DataResponse<Gift>> get(int id) {
         return Mono.justOrEmpty(redisGiftService.getGift(id)).map(this::giftDataResponse);
     }

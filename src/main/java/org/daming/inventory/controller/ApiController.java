@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -50,6 +51,11 @@ public class ApiController {
     @PostMapping(path = "gift")
     public Mono<CommonResponse> add(@RequestBody Gift gift) {
         return reactorGiftService.add(gift);
+    }
+
+    @PutMapping(path = "gift")
+    public Mono<CommonResponse> update(@RequestBody Gift gift) {
+        return reactorGiftService.update(gift);
     }
 
     @DeleteMapping(path = "gift/{id}")

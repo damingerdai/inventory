@@ -2,6 +2,7 @@ import { PageInfo } from './page';
 
 export class CommonResponse {
     statusCode: number;
+    error?: Error;
 }
 
 export class ErrorResponse extends CommonResponse {

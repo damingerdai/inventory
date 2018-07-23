@@ -26,7 +26,12 @@ public class ReactorGiftDaoImpl implements ReactorGiftDao {
 
     @Override
     public Mono<Integer> add(Gift gift) {
-        return Mono.just(giftDao.create(gift)).map(keyHolder -> keyHolder.getKey().intValue());
+        return Mono.just(giftDao.create(gift)).map(b -> b ? 1 :0);
+    }
+
+    @Override
+    public Mono<Integer> update(Gift gift) {
+        return  Mono.just(giftDao.edit(gift)).map(b -> b ? 1 :0);
     }
 
     @Override
