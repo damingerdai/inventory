@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { GiftListComponent } from './list/gift.list.component';
 import { GiftModalComponent } from './modal/gift.modal.component';
+import { ToasterModule } from 'angular2-toaster';
 
 const routes: Routes = [
     { path: '', component: GiftListComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
     imports: [
         CommonModule,
         FormsModule,
+        ToasterModule.forRoot(),
         ModalModule.forRoot(),
         RouterModule.forChild(routes)
     ],

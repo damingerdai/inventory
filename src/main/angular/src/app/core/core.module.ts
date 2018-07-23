@@ -1,5 +1,4 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
-
 import { MenuService } from './menu/menu.service';
 
 import { throwIfAlreadyLoaded } from './module-import-guard';

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { ToasterService} from 'angular2-toaster';
 import { CommonResponse } from '../../../model/response';
 
 
@@ -19,11 +20,13 @@ export class GiftModalComponent {
 
   constructor(
     public modalRef: BsModalRef,
-    public http: HttpClient) {
+    public http: HttpClient,
+    private toasterService: ToasterService) {
 
   }
 
   saveGift() {
+    this.toasterService.popAsync('info', '通知', '成功');
     if (this.giftCode && this.giftName) {
       this.http.post<CommonResponse>('/api/v1/gift', {code: this.giftCode, name: this.giftName}).subscribe(res => {
         if (res.statusCode === 200) {

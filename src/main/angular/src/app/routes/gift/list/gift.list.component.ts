@@ -28,7 +28,8 @@ export class GiftListComponent implements OnInit {
     constructor(
         private http: HttpClient,
         private modalService: BsModalService,
-        private changeDetection: ChangeDetectorRef) { }
+        private changeDetection: ChangeDetectorRef,
+    ) { }
 
     add() {
         const _combine = combineLatest(
