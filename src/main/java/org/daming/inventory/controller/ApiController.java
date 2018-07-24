@@ -55,7 +55,6 @@ public class ApiController {
 
     @PutMapping(path = "gift")
     public Mono<CommonResponse> update(@RequestBody Gift gift) {
-        System.out.println(gift);
         return reactorGiftService.update(gift);
     }
 

@@ -27,13 +27,13 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let gift of gifts; let num = index">
-                                        <th scope="col">{{ num + 1}}</th>
-                                        <th scope="col">{{ gift.code }}</th>
-                                        <th scope="col">{{ gift.name }}</th>
-                                        <th scope="col">{{ gift.num }}</th>
-                                        <th scope="col">
+                                        <th scope="col" class="text-center">{{ num + 1}}</th>
+                                        <th scope="col" class="text-center">{{ gift.code }}</th>
+                                        <th scope="col" class="text-center">{{ gift.name }}</th>
+                                        <th scope="col" class="text-center">{{ gift.num }}</th>
+                                        <th scope="col" class="text-center">
                                             <button class="btn btn-primary" (click)="updateGift(gift)">编辑</button>
-                                            <button class="btn btn-warning" (click)="deleteGift(gift.id)">编辑</button>
+                                            <button class="btn btn-warning" (click)="deleteGift(gift.id)">删除</button>
                                         </th>
                                     </tr>
                                 </tbody>

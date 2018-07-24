@@ -3,10 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { combineLatest, Subscription } from 'rxjs';
 import { ToasterService } from 'angular2-toaster';
+import Swal from 'sweetalert2';
 import { Gift } from '../../../model/gift';
 import { Page, PageInfo } from '../../../model/page';
-import { PageResponse, ErrorResponse } from '../../../model/response';
+import { PageResponse, ErrorResponse, CommonResponse } from '../../../model/response';
 import { GiftModalComponent } from '../modal/gift.modal.component';
+
 
 @Component({
     selector: 'app-gift-list',
@@ -75,7 +77,44 @@ export class GiftListComponent implements OnInit {
     }
 
     deleteGift(id: number) {
-        this.toasterService.popAsync('error', '错误', '删除礼品失败');
+        Swal({
+            title: '你确定？',
+            text: '你将无法回复该礼品!',
+            type: 'warning',
+            showCancelButton: true,
+            showConfirmButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, keep it'
+        }).then((result) => {
+
+            if (result.value) {
+                this.http.delete<CommonResponse>('/api/v1/gift/' + id).subscribe(res => {
+                    if (res.statusCode === 200) {
+                        this.ngOnInit();
+                        Swal(
+                            '删除!',
+                            '你的礼品已经删除.',
+                            'success'
+                        );
+                    } else {
+                        Swal(
+                            '错误!',
+                            res.error.message,
+                            'error'
+                        );
+                    }
+                });
+
+                // For more information about handling dismissals please visit
+                // https://sweetalert2.github.io/#handling-dismissals
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                Swal(
+                    '取消!',
+                    '你的礼品还存在 :)',
+                    'error'
+                );
+            }
+        });
     }
 
     ngOnInit() {

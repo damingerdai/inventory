@@ -63,7 +63,7 @@ public class GiftDaoImpl extends BaseDao implements GiftDao {
 
     @Override
     public int delete(int id) {
-        String sql ="delete * from gift where id = ?";
+        String sql ="delete  from gift where id = ?";
         return execute(sql, new Object[] { id } );
     }
 
