@@ -31,7 +31,10 @@
                                         <th scope="col">{{ gift.code }}</th>
                                         <th scope="col">{{ gift.name }}</th>
                                         <th scope="col">{{ gift.num }}</th>
-                                        <th scope="col">操作</th>
+                                        <th scope="col">
+                                            <button class="btn btn-primary" (click)="updateGift(gift)">编辑</button>
+                                            <button class="btn btn-warning" (click)="deleteGift(gift.id)">编辑</button>
+                                        </th>
                                     </tr>
                                 </tbody>
                             </table>

@@ -34,7 +34,10 @@
     <button type="button" class="btn btn-info" (click)="modalRef.hide()">
         取消
     </button>
-    <button type="button" class="btn btn-primary" (click)="saveGift()">
+    <button *ngIf="type == 'add'" type="button" class="btn btn-primary" (click)="saveGift()">
         添加
+    </button>
+    <button *ngIf="type == 'edit'" type="button" class="btn btn-primary" (click)="updatGift()">
+        更新
     </button>
 </div>
