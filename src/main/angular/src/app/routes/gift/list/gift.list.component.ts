@@ -8,6 +8,7 @@ import { Gift } from '../../../model/gift';
 import { Page, PageInfo } from '../../../model/page';
 import { PageResponse, ErrorResponse, CommonResponse } from '../../../model/response';
 import { GiftModalComponent } from '../modal/gift.modal.component';
+import { InventoryModalComponent } from '../modal/inventory.modal.component';
 
 
 @Component({
@@ -115,6 +116,25 @@ export class GiftListComponent implements OnInit {
                 );
             }
         });
+    }
+
+    updateInventory(id: number, num: number) {
+        const _combine = combineLatest(
+            this.modalService.onHidden
+        ).subscribe(() => this.changeDetection.markForCheck());
+
+        this.subscriptions.push(
+            this.modalService.onHidden.subscribe((reason: string) => {
+                this.ngOnInit();
+                this.unsubscribe();
+            })
+        );
+
+        this.subscriptions.push(_combine);
+
+        this.modalRef = this.modalService.show(InventoryModalComponent);
+        this.modalRef.content.giftId = id;
+        this.modalRef.content.giftInventory = num;
     }
 
     ngOnInit() {

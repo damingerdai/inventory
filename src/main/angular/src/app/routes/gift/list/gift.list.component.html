@@ -32,8 +32,11 @@
                                         <th scope="col" class="text-center">{{ gift.name }}</th>
                                         <th scope="col" class="text-center">{{ gift.num }}</th>
                                         <th scope="col" class="text-center">
-                                            <button class="btn btn-primary" (click)="updateGift(gift)">编辑</button>
-                                            <button class="btn btn-warning" (click)="deleteGift(gift.id)">删除</button>
+                                            <div class="btn-group" role="group" aria-label="...">
+                                                <button class="btn btn-primary" (click)="updateGift(gift)">编辑</button>
+                                                <button class="btn btn-warning" (click)="deleteGift(gift.id)">删除</button>
+                                                <button class="btn btn-danger" (click)="updateInventory(gift.id,gift.num)">更新库存</button>
+                                            </div>
                                         </th>
                                     </tr>
                                 </tbody>

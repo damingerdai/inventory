@@ -1,6 +1,7 @@
 package org.daming.inventory.controller;
 
 import org.daming.inventory.pojo.Gift;
+import org.daming.inventory.pojo.request.AdjustInventoryRequest;
 import org.daming.inventory.pojo.response.CommonResponse;
 import org.daming.inventory.pojo.response.DataResponse;
 import org.daming.inventory.pojo.response.PageResponse;
@@ -29,10 +30,10 @@ import reactor.core.publisher.Mono;
 @RequestMapping(path ="api/v1")
 public class ApiController {
 
-    @Autowired
-    private RedisGiftService redisGiftService;
-    @Autowired
-    private GiftService giftService;
+//    @Autowired
+//    private RedisGiftService redisGiftService;
+//    @Autowired
+//    private GiftService giftService;
     @Autowired
     private ReactorGiftService reactorGiftService;
 
@@ -61,6 +62,11 @@ public class ApiController {
     @DeleteMapping(path = "gift/{id}")
     public Mono<CommonResponse> delete(@PathVariable(name = "id") int id) {
         return reactorGiftService.delete(id);
+    }
+
+    @PutMapping(path = "gift/{id}/inventory")
+    public Mono<CommonResponse> updateInventory(@PathVariable(name = "id") int id, @RequestBody AdjustInventoryRequest request) {
+        return reactorGiftService.updateInventory(id, request.getNum());
     }
 
 }

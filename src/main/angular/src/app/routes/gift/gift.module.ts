@@ -2,10 +2,11 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ToasterModule } from 'angular2-toaster';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { GiftListComponent } from './list/gift.list.component';
 import { GiftModalComponent } from './modal/gift.modal.component';
-import { ToasterModule } from 'angular2-toaster';
+import { InventoryModalComponent } from './modal/inventory.modal.component';
 
 const routes: Routes = [
     { path: '', component: GiftListComponent },
@@ -22,9 +23,11 @@ const routes: Routes = [
     declarations: [
         GiftModalComponent,
         GiftListComponent,
+        InventoryModalComponent,
     ],
     entryComponents: [
-        GiftModalComponent
+        GiftModalComponent,
+        InventoryModalComponent
     ],
     exports: [
         RouterModule

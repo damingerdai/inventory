@@ -68,6 +68,13 @@ public class GiftDaoImpl extends BaseDao implements GiftDao {
     }
 
     @Override
+    public int updateInventory(int id, int num) {
+        String sql ="update gift set num = ?, update_date = now(), update_user = ? where id = ?";
+        Object[] params = new Object[] {num , getClass().getName(), id};
+        return  execute(sql, params);
+    }
+
+    @Override
     public int likeCount(String name) {
         String sql = "select count(*) from gift ";
         if (Objects.nonNull(name) && !"".equalsIgnoreCase(name.trim())) {

@@ -25,5 +25,7 @@ public interface ReactorGiftDao {
 
     Mono<Integer> delete(int id);
 
+    Mono<Integer> updateInventory(int id, int num);
+
     Mono<PageInfo> getPageInfo(String name, int pageNo, int pageSize);
 }

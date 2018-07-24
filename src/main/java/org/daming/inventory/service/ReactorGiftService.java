@@ -23,4 +23,6 @@ public interface ReactorGiftService {
     Mono<PageResponse<Gift>> list(String name, int pageNo, int pageSize);
 
     Mono<CommonResponse> delete(int id);
+
+    Mono<CommonResponse> updateInventory(int id, int num);
 }

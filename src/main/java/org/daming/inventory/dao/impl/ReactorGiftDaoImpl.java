@@ -26,12 +26,12 @@ public class ReactorGiftDaoImpl implements ReactorGiftDao {
 
     @Override
     public Mono<Integer> add(Gift gift) {
-        return Mono.just(giftDao.create(gift)).map(b -> b ? 1 :0);
+        return Mono.just(giftDao.create(gift)).map(b -> b ? 1 : 0);
     }
 
     @Override
     public Mono<Integer> update(Gift gift) {
-        return  Mono.just(giftDao.edit(gift)).map(b -> b ? 1 :0);
+        return Mono.just(giftDao.edit(gift)).map(b -> b ? 1 : 0);
     }
 
     @Override
@@ -47,16 +47,21 @@ public class ReactorGiftDaoImpl implements ReactorGiftDao {
     @Override
     public Mono<PageInfo> getPageInfo(String name, int pageNo, int pageSize) {
         return Mono.justOrEmpty(giftDao.likeCount(name)).switchIfEmpty(Mono.just(0)).map(integer -> new PageInfo()
-                  .setCurrentPage(pageNo)
-                  .setPageSize(pageSize)
-                  .setTotalResult(integer)
-                  .setTotalPage(integer % pageSize == 0 ? integer/pageSize : integer/pageSize + 1));
+                .setCurrentPage(pageNo)
+                .setPageSize(pageSize)
+                .setTotalResult(integer)
+                .setTotalPage(integer % pageSize == 0 ? integer / pageSize : integer / pageSize + 1));
     }
 
 
     @Override
     public Mono<Integer> delete(int id) {
         return Mono.just(giftDao.delete(giftDao.delete(id)));
+    }
+
+    @Override
+    public Mono<Integer> updateInventory(int id, int num) {
+        return Mono.just(giftDao.updateInventory(id, num));
     }
 
     public ReactorGiftDaoImpl(GiftDao giftDao) {

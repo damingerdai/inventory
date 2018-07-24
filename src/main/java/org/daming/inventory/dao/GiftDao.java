@@ -24,6 +24,8 @@ public interface GiftDao {
 
     int delete(int id);
 
+    int updateInventory(int id, int num);
+
     int likeCount(String name);
 
 }

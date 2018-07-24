@@ -70,6 +70,11 @@ public class ReactorGiftServiceImpl implements ReactorGiftService {
         return reactorGiftDao.delete(id).map(integer -> new CommonResponse());
     }
 
+    @Override
+    public Mono<CommonResponse> updateInventory(int id, int num) {
+        return reactorGiftDao.updateInventory(id, num > 0 ? num : 0).map(integer -> new CommonResponse());
+    }
+
     public ReactorGiftServiceImpl(ReactorGiftDao reactorGiftDao, RedisGiftService redisGiftService) {
         super();
         this.reactorGiftDao = reactorGiftDao;
